@@ -1,0 +1,3 @@
+export const GET_DESTINATION_LIST = "GET_DESTINATION_LIST";
+export const SAVE_MESSAGE = "SAVE_MESSAGE";
+export const GET_MESSAGE = "GET_MESSAGE";

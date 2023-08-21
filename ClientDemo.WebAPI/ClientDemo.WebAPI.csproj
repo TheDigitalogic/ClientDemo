@@ -1,0 +1,94 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">  
+   <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+	<AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
+ </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DebugType>full</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+	<AspNetCoreModuleName>AspNetCoreModule</AspNetCoreModuleName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Controllers\Package\**" />
+    <Compile Remove="Models\Interface\Package\**" />
+    <Compile Remove="Models\Repository\MarketingMenu\**" />
+    <Compile Remove="Models\Repository\Package\**" />
+    <Compile Remove="Photos\**" />
+    <Content Remove="Controllers\Package\**" />
+    <Content Remove="Models\Interface\Package\**" />
+    <Content Remove="Models\Repository\MarketingMenu\**" />
+    <Content Remove="Models\Repository\Package\**" />
+    <Content Remove="Photos\**" />
+    <EmbeddedResource Remove="Controllers\Package\**" />
+    <EmbeddedResource Remove="Models\Interface\Package\**" />
+    <EmbeddedResource Remove="Models\Repository\MarketingMenu\**" />
+    <EmbeddedResource Remove="Models\Repository\Package\**" />
+    <EmbeddedResource Remove="Photos\**" />
+    <None Remove="Controllers\Package\**" />
+    <None Remove="Models\Interface\Package\**" />
+    <None Remove="Models\Repository\MarketingMenu\**" />
+    <None Remove="Models\Repository\Package\**" />
+    <None Remove="Photos\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Controllers\AuthController - Copy.cs" />
+    <Compile Remove="Controllers\Client\PackageCheckPriceController.cs" />
+    <Compile Remove="Controllers\Client\PackageCheckPriceUserFavoriteController.cs" />
+    <Compile Remove="Controllers\Marketing\Load_dataController.cs" />
+    <Compile Remove="Models\EmailService\EmailManager.cs" />
+    <Compile Remove="Models\Entity\Client\PackageCheckPrice.cs" />
+    <Compile Remove="Models\Entity\Client\PackageCheckPriceIsFavorite.cs" />
+    <Compile Remove="Models\Entity\Client\PackageCheckPriceSaveMargin.cs" />
+    <Compile Remove="Models\Entity\Client\PackageCity_OLD.cs" />
+    <Compile Remove="Models\Entity\Client\Package_check_price_save_margin.cs" />
+    <Compile Remove="Models\Interface\Client\IPackageCheckPriceRepository.cs" />
+    <Compile Remove="Models\Interface\Client\IPackageCheckPriceUserFavoriteRepository.cs" />
+    <Compile Remove="Models\Interface\Marketing\ILoad_dataRepository.cs" />
+    <Compile Remove="Models\Repository\Client\PackageCheckPriceRepository.cs" />
+    <Compile Remove="Models\Repository\Client\PackageCheckPriceUserFavoriteRepository.cs" />
+    <Compile Remove="Models\Repository\Client\PackageQuotationRepository - Copy.cs" />
+    <Compile Remove="Models\Repository\Client\PackageQuotationUserFavoriteRepository - Copy.cs" />
+    <Compile Remove="Models\Repository\GlobalMasters\PackageRepository - Copy.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="DocumentFormat.OpenXml" Version="2.20.0" />
+    <PackageReference Include="EnterpriseLibrary.Data" Version="6.0.1304" />
+    <PackageReference Include="MailKit" Version="4.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.7" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.7" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.7" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.7">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Practices.EnterpriseLibrary.2008" Version="4.1.0" />
+    <PackageReference Include="Optivem.Framework.Infrastructure.FluentValidation" Version="1.0.23" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.4" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.27.0" />
+    <PackageReference Include="Vse.Web.Serialization.ControlledSerializationJsonConverter" Version="1.0.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Import_data\Product\Data\" />
+    <Folder Include="Import_data\Product\Template\" />
+    <Folder Include="Models\EmailService\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\.editorconfig" Link=".editorconfig" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="TravelNinjaz.CommonUtilities">
+      <HintPath>Dependencies\TravelNinjaz.CommonUtilities.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+
+</Project>

@@ -1,0 +1,9 @@
+/node_modules
+/build
+obj
+packages
+node_modules
+\build\
+build
+*.suo
+*.appsettings.json

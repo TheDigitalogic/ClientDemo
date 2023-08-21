@@ -1,0 +1,58 @@
+*.suo
+*.user
+_ReSharper.*
+bin
+obj
+packages
+node_modules
+build
+debug
+*\bin\Debug\*
+TravelNinjaz.B2B.WebAPI/bin/Debug/netcoreapp3.1/appsettings.json
+photos
+.vs/ProjectEvaluation/travelninjaz.b2b.metadata.v5.1
+.vs/ProjectEvaluation/travelninjaz.b2b.metadata.v5.1
+.vs/ProjectEvaluation/travelninjaz.b2b.projects.v5.1
+.vs/TravelNinjaz.B2B/DesignTimeBuild/.dtbcache.v2
+.vs/ProjectEvaluation/travelninjaz.b2b.metadata.v5.1
+.vs/ProjectEvaluation/travelninjaz.b2b.projects.v5.1
+.vs/TravelNinjaz.B2B/config/applicationhost.config
+.vs/TravelNinjaz.B2B/DesignTimeBuild/.dtbcache.v2
+.vs/TravelNinjaz.B2B/FileContentIndex/0425031f-5b16-4126-83b8-24ef38cc4d9d.vsidx
+.vs/TravelNinjaz.B2B/FileContentIndex/07310741-02e5-4974-88b3-f271bcfd4635.vsidx
+.vs/TravelNinjaz.B2B/FileContentIndex/b17622cc-5897-4a08-8881-592baed99920.vsidx
+.vs/TravelNinjaz.B2B/FileContentIndex/e272c1a8-e9bf-4c84-bf5d-981250d31831.vsidx
+.vs/TravelNinjaz.B2B/FileContentIndex/e7fedf48-5de5-4e87-a267-04548c2c8116.vsidx
+.vs/TravelNinjaz.B2B/FileContentIndex/merges/57a77e80-8814-4a26-bcf6-61879007f420.vsidx
+.vs/TravelNinjaz.B2B/v17/.futdcache.v2
+TravelNinjaz.B2B.WebAPI/Images/Destination/ourblog.png
+TravelNinjaz.B2B.WebAPI/Images/Destination/WhatsApp Image 2023-01-23 at 8.04.58 PM.jpeg
+TravelNinjaz.B2B.WebAPI/Images/Package/2021-10-11 (2).png
+TravelNinjaz.B2B.WebAPI/Images/Package/2021-11-11.png
+TravelNinjaz.B2B.WebAPI/Images/Package/logic.png
+TravelNinjaz.B2B.WebAPI/Images/Package/response_file-1.png
+TravelNinjaz.B2B.WebAPI/Images/Package/salesforce.png
+TravelNinjaz.B2B.WebAPI/Images/Package/Screenshot (538).png
+TravelNinjaz.B2B.WebAPI/Images/Package/Screenshot (542).png
+TravelNinjaz.B2B.WebAPI/Images/Package/Screenshot (562).png
+TravelNinjaz.B2B.WebAPI/Images/Package/Screenshot (620).png
+TravelNinjaz.B2B.WebAPI/Images/Package/Screenshot (633).png
+TravelNinjaz.B2B.WebAPI/Images/Package/Screenshot (644).png
+TravelNinjaz.B2B.WebAPI/Images/Package/Screenshot (647).png
+TravelNinjaz.B2B.WebAPI/Images/Package/Screenshot (674).png
+TravelNinjaz.B2B.WebAPI/Images/Package/Screenshot (684).png
+TravelNinjaz.B2B.WebAPI/Images/Package/Screenshot (685).png
+TravelNinjaz.B2B.WebAPI/Images/Package/Screenshot (686).png
+TravelNinjaz.B2B.WebAPI/Images/Package/Screenshot (689).png
+TravelNinjaz.B2B.WebAPI/Images/Package/Screenshot (690).png
+TravelNinjaz.B2B.WebAPI/Images/Package/Screenshot (691).png
+TravelNinjaz.B2B.WebAPI/Images/Package/Screenshot (694).png
+TravelNinjaz.B2B.WebAPI/obj/Debug/netcoreapp3.1/TravelNinjaz.B2B.WebAPI.GeneratedMSBuildEditorConfig.editorconfig
+*.1
+.vs/ProjectEvaluation/travelninjaz.b2b.metadata.v5.1
+.vs/ProjectEvaluation/travelninjaz.b2b.projects.v5.1
+.vs/TravelNinjaz.B2B/config/applicationhost.config
+.vs/TravelNinjaz.B2B/DesignTimeBuild/.dtbcache.v2
+.vs/TravelNinjaz.B2B/FileContentIndex/e272c1a8-e9bf-4c84-bf5d-981250d31831.vsidx
+.vs/TravelNinjaz.B2B/v17/.futdcache.v2
+TravelNinjaz.B2B.WebAPI/obj/Debug/netcoreapp3.1/TravelNinjaz.B2B.WebAPI.GeneratedMSBuildEditorConfig.editorconfig

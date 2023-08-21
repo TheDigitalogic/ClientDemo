@@ -1,0 +1,22 @@
+.customboxright {
+  margin-left: 5px !important;
+}
+.customboxleft {
+  margin-right: 5px !important;
+}
+@media (max-width: 992px) {
+  .customboxleft {
+    margin-right: 0px !important;
+    width: 100% !important;
+  }
+  .customboxright {
+    margin-left: 0px !important;
+    width: 100% !important;
+  }
+}
+@media (max-width: 576px) {
+  .customcolumn {
+    display: flex;
+    flex-direction: column !important;
+  }
+}

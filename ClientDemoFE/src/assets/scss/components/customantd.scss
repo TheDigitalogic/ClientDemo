@@ -1,0 +1,45 @@
+.editable-cell {
+  position: relative;
+}
+.warningContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.warningStyle {
+  font-size: 40px;
+  margin-bottom: 5px;
+  color: yellow;
+}
+.warningPara {
+  font-size: 16px;
+}
+.editable-cell-value-wrap {
+  padding: 5px;
+  cursor: pointer;
+  border: 1px solid #d9d9d9;
+}
+
+.editable-row:hover .editable-cell-value-wrap {
+  padding: 5px;
+  border: 1px solid #d9d9d9;
+  border-radius: 2px;
+}
+
+[data-theme="dark"] .editable-row:hover .editable-cell-value-wrap {
+  border: 1px solid #434343;
+}
+.tableCustom {
+  width: 100%;
+  height: 60vh;
+  overflow-y: auto;
+  overflow-x: auto;
+}
+
+/**media queries**/
+@media screen and (max-width: 576px) {
+  .customcancelsavebtn {
+    display: none !important;
+  }
+}
