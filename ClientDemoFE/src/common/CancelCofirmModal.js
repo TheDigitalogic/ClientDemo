@@ -6,6 +6,7 @@ const CancelCofirmModal = ({
   modal_standard,
   tog_standard,
   cancelHandller,
+  message,
 }) => {
   return (
     <>
@@ -19,7 +20,7 @@ const CancelCofirmModal = ({
         style={{ width: "500px" }}
       >
         <ModalBody>
-          <ConfirmationWarning />
+          <ConfirmationWarning message={message} />
         </ModalBody>
         <div className="modal-footer gap-1 justify-content-center">
           <ButttonTravelNinjaz

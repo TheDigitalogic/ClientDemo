@@ -14,6 +14,7 @@ import {
 import BreadCrumb from "../../components/Common/BreadCrumb";
 import ButttonTravelNinjaz from "../../components/Common/GloablMaster/ButttonTravelNinjaz";
 import Mastersearch from "../../components/Common/GloablMaster/Mastersearch";
+import CancelCofirmModal from "../../common/CancelCofirmModal";
 import { Table } from "antd";
 import "antd/dist/antd.css";
 import { useState } from "react";
@@ -39,6 +40,8 @@ const User = () => {
   const [editable, setEditable] = useState(false);
   const [showInvalid, setShowInvalid] = useState(false);
   const [oldRole, setOldRole] = useState("");
+  const [deleteConfirmModal, setDeleteConfirmModal] = useState(false);
+  const [deleteRecord, setDeleteRecord] = useState();
   /**This is for role options*/
   const roleOptions = [
     {
@@ -97,6 +100,10 @@ const User = () => {
   useEffect(() => {
     getUserListFunc();
   }, []);
+  /**this is toggle function for delete confirmation */
+  const togDeleteModal = () => {
+    setDeleteConfirmModal(!deleteConfirmModal);
+  };
   /**This function for open modal close */
   const handleAdd = () => {
     setEditable(false);
@@ -212,22 +219,24 @@ const User = () => {
   };
 
   /**this is for delete handller */
-  const deleteHandller = async (record) => {
+  const deleteHandller = async () => {
     try {
       const response = await deleteUserService({
-        FirstName: record?.firstName,
-        LastName: record?.lastName,
-        Email: record?.email,
-        Phone: record?.phone,
-        UserName: record?.userName,
-        Role: role?.role,
+        FirstName: deleteRecord?.firstName,
+        LastName: deleteRecord?.lastName,
+        Email: deleteRecord?.email,
+        Phone: deleteRecord?.phone,
+        UserName: deleteRecord?.userName,
+        Role: deleteRecord?.role,
         Operation: "DELETE",
-        UserId: record?.userId,
-        AspNetUserId: record?.aspNetUserId,
+        UserId: deleteRecord?.userId,
+        AspNetUserId: deleteRecord?.aspNetUserId,
         Is_active: true,
-        Role: record?.role,
+        Role: deleteRecord?.role,
       });
       if (response?.status === "SUCCESS") {
+        togDeleteModal();
+        setDeleteRecord(undefined);
         successNotify(response?.message);
         getUserListFunc();
       } else {
@@ -238,6 +247,11 @@ const User = () => {
     }
   };
 
+  /**delete tog handller */
+  const deleteTogHandller = (record) => {
+    togDeleteModal();
+    setDeleteRecord(record);
+  };
   /**This is for cancel handller */
   const cancelHandller = () => {
     setShowInvalid(false);
@@ -263,7 +277,7 @@ const User = () => {
             <button
               type="button"
               className="btn btn-sm btn-danger mx-2"
-              onClick={() => deleteHandller(record)}
+              onClick={() => deleteTogHandller(record)}
             >
               {" "}
               Delete{" "}
@@ -556,6 +570,13 @@ const User = () => {
           </div>
         </div>
       </Modal>
+
+      <CancelCofirmModal
+        cancelHandller={deleteHandller}
+        modal_standard={deleteConfirmModal}
+        tog_standard={togDeleteModal}
+        message={"Are you sure to Delete?"}
+      />
     </>
   );
 };
