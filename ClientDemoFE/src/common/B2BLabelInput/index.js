@@ -15,11 +15,12 @@ const B2BLabelInput = ({
   invalid,
   defaultValue,
   disabled,
+  required,
 }) => {
   return (
     <>
       <Label className={classNameLabel} htmlFor={id}>
-        {labelName}
+        {labelName} {required ? <span className="text-danger">*</span> : ""}
       </Label>
       <Input
         className={classNameInput}

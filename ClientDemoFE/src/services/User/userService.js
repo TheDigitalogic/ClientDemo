@@ -26,9 +26,9 @@ export const getUserAndCompany = (params) => {
 export const updateUser = (data) =>
   post(`${url}/api/auth/UpdateUserclient`, data);
 /**This service for delete */
-export const deleteUser = (data) => {
+export const deleteUserService = (data) =>
   post(`${url}/api/auth/DeleteUser`, data);
-};
+
 /**This service for save user company */
 export const updateCompany = (data) =>
   post(`${url}/api/auth/UpdateUserCompany`, data);

@@ -19,7 +19,7 @@ import "antd/dist/antd.css";
 import { useState } from "react";
 import B2BLabelInput from "../../common/B2BLabelInput";
 import {
-  deleteUser,
+  deleteUserService,
   getUserList,
   signup,
   updateUser,
@@ -30,12 +30,14 @@ import {
   errornotify,
   successNotify,
 } from "../../components/Common/notification";
-import { ToastContainer } from "react-toastify";
+
+import RequiredError from "../../common/RequiredError";
 const User = () => {
   /**This state for a modal open and false */
   const [add_modal_is_open, set_add_modal_is_open] = useState(false);
   const [userList, setUserList] = useState([]);
   const [editable, setEditable] = useState(false);
+  const [showInvalid, setShowInvalid] = useState(false);
   const [oldRole, setOldRole] = useState("");
   /**This is for role options*/
   const roleOptions = [
@@ -51,15 +53,15 @@ const User = () => {
 
   /**This is for value */
   const [value, setValue] = useState({
-    firstName: "",
-    userId: "",
-    aspNetUserId: "",
-    lastName: "",
-    userName: "",
-    contactNumber: "",
-    email: "",
-    password: "",
-    confirmPassword: "",
+    firstName: undefined,
+    userId: undefined,
+    aspNetUserId: undefined,
+    lastName: undefined,
+    userName: undefined,
+    contactNumber: undefined,
+    email: undefined,
+    password: undefined,
+    confirmPassword: undefined,
     role: {
       label: "Standard",
       value: "Standard",
@@ -86,7 +88,7 @@ const User = () => {
       if (userResponse?.data?.status === "SUCCESS") {
         setUserList(userResponse?.data?.data);
       } else {
-        throw userResponse?.messsage;
+        throw userResponse?.message;
       }
     } catch (error) {
       errornotify(error);
@@ -98,6 +100,7 @@ const User = () => {
   /**This function for open modal close */
   const handleAdd = () => {
     setEditable(false);
+    setShowInvalid(false);
     setValue({
       firstName: "",
       userId: "",
@@ -131,6 +134,32 @@ const User = () => {
   /**This is for save or update user details */
   const saveUser = async (operation) => {
     try {
+      setShowInvalid(true);
+      if (!firstName) {
+        throw "First name is required";
+      }
+      if (!lastName) {
+        throw "Last name is required";
+      }
+      if (!contactNumber) {
+        throw "Contact number is required";
+      }
+
+      if (!email) {
+        throw "Email is required";
+      }
+      if (!userName) {
+        throw "User name is required";
+      }
+      if (!password && operation === "ADD") {
+        throw "Password is required";
+      }
+      if (!confirmPassword && operation === "ADD") {
+        throw "Confirm password is required";
+      }
+      if (!role.value) {
+        throw "Role is required";
+      }
       const data = {
         FirstName: firstName,
         LastName: lastName,
@@ -149,11 +178,12 @@ const User = () => {
       const response = editable ? await updateUser(data) : await signup(data);
 
       if (response?.status === "SUCCESS") {
-        successNotify(response?.messsage);
+        successNotify(response?.message);
+        setShowInvalid(false);
         tog_scroll();
         getUserListFunc();
       } else {
-        throw response?.messsage;
+        throw response?.message;
       }
     } catch (error) {
       errornotify(error);
@@ -162,6 +192,7 @@ const User = () => {
   /**This is function for edit handller */
   const editHandller = (record) => {
     setEditable(true);
+    setShowInvalid(false);
     setOldRole(record?.role);
     setValue({
       ...value,
@@ -183,7 +214,7 @@ const User = () => {
   /**this is for delete handller */
   const deleteHandller = async (record) => {
     try {
-      const response = await deleteUser({
+      const response = await deleteUserService({
         FirstName: record?.firstName,
         LastName: record?.lastName,
         Email: record?.email,
@@ -197,16 +228,19 @@ const User = () => {
         Role: record?.role,
       });
       if (response?.status === "SUCCESS") {
-        successNotify(response?.messsage);
+        successNotify(response?.message);
+        getUserListFunc();
       } else {
-        throw response?.messsage;
+        throw response?.message;
       }
     } catch (error) {
       errornotify(error);
     }
   };
+
   /**This is for cancel handller */
   const cancelHandller = () => {
+    setShowInvalid(false);
     tog_scroll();
   };
 
@@ -261,7 +295,6 @@ const User = () => {
   ];
   return (
     <>
-      <ToastContainer />
       <div className="page-content">
         <Container fluid>
           <BreadCrumb title="User" isSubTitle={false} pageTitle="User" />
@@ -337,11 +370,17 @@ const User = () => {
                   labelName={"First Name"}
                   value={firstName}
                   defaultValue={firstName}
-                  //   invalid={package_name?.length < 1 && showInvalid}
+                  invalid={!firstName && showInvalid}
                   name="firstName"
                   onChangeHandller={onChangeHandller}
                   type="text"
+                  required={true}
                 />
+                {!firstName && showInvalid ? (
+                  <RequiredError errorMessage={"First Name is required."} />
+                ) : (
+                  ""
+                )}
               </Col>
               <Col xxl={6}>
                 <B2BLabelInput
@@ -351,11 +390,17 @@ const User = () => {
                   labelName={"Last Name"}
                   value={lastName}
                   defaultValue={lastName}
-                  //   invalid={package_name?.length < 1 && showInvalid}
+                  invalid={!lastName && showInvalid}
                   name="lastName"
                   onChangeHandller={onChangeHandller}
                   type="text"
+                  required={true}
                 />
+                {!lastName && showInvalid ? (
+                  <RequiredError errorMessage={"Last Name is required."} />
+                ) : (
+                  ""
+                )}
               </Col>
 
               <Col xxl={6}>
@@ -366,11 +411,17 @@ const User = () => {
                   labelName={"Contact Number"}
                   value={contactNumber}
                   defaultValue={contactNumber}
-                  //   invalid={package_name?.length < 1 && showInvalid}
+                  invalid={!contactNumber && showInvalid}
                   name="contactNumber"
                   onChangeHandller={onChangeHandller}
                   type="number"
+                  required={true}
                 />
+                {!contactNumber && showInvalid ? (
+                  <RequiredError errorMessage={"Contact number is required."} />
+                ) : (
+                  ""
+                )}
               </Col>
 
               <Col xxl={6}>
@@ -381,11 +432,17 @@ const User = () => {
                   labelName={"Email"}
                   value={email}
                   defaultValue={email}
-                  //   invalid={package_name?.length < 1 && showInvalid}
+                  invalid={!email && showInvalid}
                   name="email"
                   onChangeHandller={onChangeHandller}
                   type="email"
+                  required={true}
                 />
+                {!email && showInvalid ? (
+                  <RequiredError errorMessage={"Email is required."} />
+                ) : (
+                  ""
+                )}
               </Col>
               <Col xxl={6}>
                 <B2BLabelInput
@@ -396,11 +453,17 @@ const User = () => {
                   value={userName}
                   defaultValue={userName}
                   disabled={editable}
-                  //   invalid={package_name?.length < 1 && showInvalid}
+                  required={true}
+                  invalid={!userName && showInvalid}
                   name="userName"
                   onChangeHandller={onChangeHandller}
                   type="text"
                 />
+                {!userName && showInvalid ? (
+                  <RequiredError errorMessage={"Username is required."} />
+                ) : (
+                  ""
+                )}
               </Col>
               {!editable ? (
                 <>
@@ -413,11 +476,17 @@ const User = () => {
                       labelName={"Password"}
                       value={password}
                       defaultValue={password}
-                      //   invalid={package_name?.length < 1 && showInvalid}
+                      required={true}
+                      invalid={!password && showInvalid}
                       name="password"
                       onChangeHandller={onChangeHandller}
                       type="password"
                     />
+                    {!password && showInvalid ? (
+                      <RequiredError errorMessage={"Password is required."} />
+                    ) : (
+                      ""
+                    )}
                   </Col>
                   <Col xxl={6}>
                     <B2BLabelInput
@@ -427,11 +496,19 @@ const User = () => {
                       labelName={"Confirm Password"}
                       value={confirmPassword}
                       defaultValue={confirmPassword}
-                      //   invalid={package_name?.length < 1 && showInvalid}
+                      required={true}
+                      invalid={!confirmPassword && showInvalid}
                       name="confirmPassword"
                       onChangeHandller={onChangeHandller}
                       type="password"
                     />
+                    {!confirmPassword && showInvalid ? (
+                      <RequiredError
+                        errorMessage={"ConfirmPassword is required."}
+                      />
+                    ) : (
+                      ""
+                    )}
                   </Col>
                 </>
               ) : (
@@ -440,7 +517,7 @@ const User = () => {
               <Col xxl={6}>
                 <div>
                   <Label htmlFor="isRole" className="form-label">
-                    Role
+                    Role <span className="text-danger">*</span>
                   </Label>
                   <Select
                     value={role}
@@ -452,6 +529,11 @@ const User = () => {
                     components={animatedComponents}
                   />
                 </div>
+                {!role.value && showInvalid ? (
+                  <RequiredError errorMessage={"Role is required."} />
+                ) : (
+                  ""
+                )}
               </Col>
             </div>
           </form>

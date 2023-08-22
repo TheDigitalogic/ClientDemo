@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { ToastContainer } from "react-toastify";
 import {
   Card,
   CardBody,
@@ -24,6 +23,7 @@ import {
   saveOrganizationService,
 } from "../../services/OrganizationService";
 import { getSessionUsingSessionStorage } from "../../services/common/session";
+import RequiredError from "../../common/RequiredError";
 const Organization = () => {
   const [organizationList, setOrganizationList] = useState([]);
   const [add_modal_is_open, set_add_modal_is_open] = useState(false);
@@ -48,6 +48,7 @@ const Organization = () => {
   /**This function for open modal close */
   const handleAdd = () => {
     setEditable(false);
+    setShowInvalid(false);
     setValue({
       organizationCode: "",
       organizationName: "",
@@ -60,7 +61,7 @@ const Organization = () => {
       if (userResponse?.data?.status === "SUCCESS") {
         setOrganizationList(userResponse?.data?.data);
       } else {
-        throw userResponse?.messsage;
+        throw userResponse?.message;
       }
     } catch (error) {
       errornotify("error");
@@ -78,6 +79,12 @@ const Organization = () => {
   const saveOrganization = async (operation) => {
     try {
       setShowInvalid(true);
+      if (!organizationName) {
+        throw "Organization name is required.";
+      }
+      if (!organizationCode) {
+        throw "Organization Code is required.";
+      }
       const data = {
         OrganizationId: organizationId,
         OrganizationCode: organizationCode,
@@ -89,15 +96,15 @@ const Organization = () => {
       const response = await saveOrganizationService(data);
 
       if (response?.status === "SUCCESS") {
+        successNotify(response?.message);
         setShowInvalid(false);
-        successNotify(response?.messsage);
+
         tog_scroll();
         getOrganizationFunc();
       } else {
-        throw response?.messsage;
+        throw response?.message;
       }
     } catch (error) {
-      debugger;
       errornotify(error);
     }
   };
@@ -113,9 +120,10 @@ const Organization = () => {
         Row_altered_by: userName,
       });
       if (response?.status === "SUCCESS") {
-        successNotify(response?.messsage);
+        successNotify(response?.message);
+        getOrganizationFunc();
       } else {
-        throw response?.messsage;
+        throw response?.message;
       }
     } catch (error) {
       errornotify(error);
@@ -124,6 +132,7 @@ const Organization = () => {
   /**This is for update handller */
   const editHandller = async (record) => {
     setEditable(true);
+    setShowInvalid(false);
     tog_scroll();
     setValue({
       ...value,
@@ -180,9 +189,9 @@ const Organization = () => {
       dataIndex: "organizationName",
     },
   ];
+
   return (
     <>
-      <ToastContainer />
       <div className="page-content">
         <Container fluid>
           <BreadCrumb
@@ -263,8 +272,15 @@ const Organization = () => {
                   name="organizationCode"
                   onChangeHandller={onChangeHandller}
                   type="text"
+                  required={true}
                 />
-                {/* {!organizationCode && showInvalid?<Er} */}
+                {!organizationCode && showInvalid ? (
+                  <RequiredError
+                    errorMessage={"Organization Code is required."}
+                  />
+                ) : (
+                  ""
+                )}
               </Col>
               <Col xxl={12}>
                 <B2BLabelInput
@@ -278,7 +294,15 @@ const Organization = () => {
                   name="organizationName"
                   onChangeHandller={onChangeHandller}
                   type="text"
+                  required={true}
                 />
+                {!organizationName && showInvalid ? (
+                  <RequiredError
+                    errorMessage={"Organization Name is required."}
+                  />
+                ) : (
+                  ""
+                )}
               </Col>
             </div>
           </form>
