@@ -14,6 +14,7 @@ import ButttonTravelNinjaz from "../../components/Common/GloablMaster/ButttonTra
 import { Table } from "antd";
 import "antd/dist/antd.css";
 import B2BLabelInput from "../../common/B2BLabelInput";
+import CancelCofirmModal from "../../common/CancelCofirmModal";
 import {
   errornotify,
   successNotify,
@@ -28,6 +29,8 @@ const Organization = () => {
   const [organizationList, setOrganizationList] = useState([]);
   const [add_modal_is_open, set_add_modal_is_open] = useState(false);
   const [showInvalid, setShowInvalid] = useState(false);
+  const [deleteConfirmModal, setDeleteConfirmModal] = useState(false);
+  const [deleteRecord, setDeleteRecord] = useState();
   const [value, setValue] = useState({
     organizationCode: undefined,
     organizationName: undefined,
@@ -109,17 +112,19 @@ const Organization = () => {
     }
   };
   /**this is for delete handller */
-  const deleteHandller = async (record) => {
+  const deleteHandller = async () => {
     try {
       const response = await saveOrganizationService({
-        OrganizationId: record?.organizationId,
-        OrganizationCode: record?.organizationCode,
-        OrganizationName: record?.organizationName,
+        OrganizationId: deleteRecord?.organizationId,
+        OrganizationCode: deleteRecord?.organizationCode,
+        OrganizationName: deleteRecord?.organizationName,
         Operation: "DELETE",
         Row_created_by: userName,
         Row_altered_by: userName,
       });
       if (response?.status === "SUCCESS") {
+        setDeleteRecord(undefined);
+        togDeleteModal();
         successNotify(response?.message);
         getOrganizationFunc();
       } else {
@@ -152,6 +157,15 @@ const Organization = () => {
         setUserName(value.userName);
       });
   }, []);
+  /**this is toggle function for delete confirmation */
+  const togDeleteModal = () => {
+    setDeleteConfirmModal(!deleteConfirmModal);
+  };
+  /**delete tog handller */
+  const deleteTogHandller = (record) => {
+    togDeleteModal();
+    setDeleteRecord(record);
+  };
   const columns = [
     {
       title: "Action",
@@ -171,7 +185,7 @@ const Organization = () => {
             <button
               type="button"
               className="btn btn-sm btn-danger mx-2"
-              onClick={() => deleteHandller(record)}
+              onClick={() => deleteTogHandller(record)}
             >
               {" "}
               Delete{" "}
@@ -327,6 +341,12 @@ const Organization = () => {
           </div>
         </div>
       </Modal>
+      <CancelCofirmModal
+        cancelHandller={deleteHandller}
+        modal_standard={deleteConfirmModal}
+        tog_standard={togDeleteModal}
+        message={"Are you sure to Delete?"}
+      />
     </>
   );
 };
